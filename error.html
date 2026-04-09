@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RadioForUs | System Alert</title>
+    <title>RadioForUs - Report an error.</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -71,32 +71,29 @@
 <body>
 
 <div class="container">
-    <h2>📡 RadioForUs Alert</h2>
-    <p>Report issues with the network or web clusters.</p>
+    <h2>Report an error:</h2>
+    <p>Report issues with our website or our videos.</p>
 
     <div class="form-group">
-        <label>Operator / Callsign</label>
+        <label>Name / Callsign</label>
         <input type="text" id="name" placeholder="Enter Name..." required>
     </div>
 
     <div class="form-group">
-        <label>Affected System</label>
+        <label>Nature of the error:</label>
         <select id="component">
-            <option value="Main Site (radioforus.co.uk)">Main Site (radioforus.co.uk)</option>
-            <option value="AllStarLink Hub (hub.jackbrown.xyz)">AllStarLink Hub (hub.jackbrown.xyz)</option>
-            <option value="Wavelog (wavelog.jackbrown.xyz)">Wavelog Logbook</option>
-            <option value="Status Dash (status.jackbrown.xyz)">Uptime Kuma Dash</option>
-            <option value="Reverse Proxy / SSL Error">Reverse Proxy / SSL Error</option>
-            <option value="Other Radio Component">Other Radio Component</option>
+            <option value="Main Website">Main Site (radioforus.co.uk)</option>
+            <option value="Video Problem">A problem with one of our videos</option>
+            <option value="Other General Issue">Other...</option>
         </select>
     </div>
 
     <div class="form-group">
         <label>Details</label>
-        <textarea id="message" rows="4" placeholder="Briefly describe the fault..."></textarea>
+        <textarea id="message" rows="4" placeholder="Briefly describe the issue..."></textarea>
     </div>
 
-    <button onclick="sendToDiscord()" id="submitBtn">SEND REPORT</button>
+    <button onclick="sendToDiscord()" id="submitBtn">Send!</button>
 </div>
 
 <script>
@@ -114,19 +111,19 @@ async function sendToDiscord() {
         return;
     }
 
-    btn.innerText = "TRANSMITTING...";
+    btn.innerText = "Sending your report";
     btn.disabled = true;
 
     const payload = {
         embeds: [{
-            title: "⚠️ RADIO NETWORK FAULT",
+            title: "Error in sending",
             color: 16737380, 
             fields: [
                 { name: "Reported By", value: name, inline: true },
                 { name: "Affected System", value: comp, inline: true },
                 { name: "Fault Details", value: msg }
             ],
-            footer: { text: "System Origin: GitHub Pages Backup" },
+            footer: { text: "Backup hosting" },
             timestamp: new Date().toISOString()
         }]
     };
@@ -139,15 +136,15 @@ async function sendToDiscord() {
         });
 
         if (response.ok) {
-            alert("Report Sent. Check the Discord channel.");
+            alert("Report Sent. Thanks for your help :)");
             document.getElementById('message').value = "";
         } else {
-            alert("Error: Discord rejected the message. Check your Webhook URL.");
+            alert("Error!");
         }
     } catch (error) {
-        alert("Network Error: Could not reach Discord.");
+        alert("Network Error: Could not reach server");
     } finally {
-        btn.innerText = "SEND REPORT";
+        btn.innerText = "Send Report";
         btn.disabled = false;
     }
 }
