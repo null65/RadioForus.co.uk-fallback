@@ -133,9 +133,9 @@
 <body>
 
 <div class="container">
-    <span class="logo-mark">RadioForUs<span>.</span></span>
-    <h2>Signal Report</h2>
-    <p>Help us fix the frequency by reporting website or video issues.</p>
+    <span class="logo-mark">RadioForUs<span> Error Reporting</span></span>
+    <h2>Help us solve an error</h2>
+    <p>Help us fix the issue by reporting website or video issues.</p>
 
     <div class="form-group">
         <label>Name / Callsign</label>
@@ -156,7 +156,7 @@
 
     <div class="form-group">
         <label>Details</label>
-        <textarea id="message" rows="4" placeholder="Be as specific as possible..."></textarea>
+        <textarea id="message" rows="4" placeholder="Please be as specific as possible..."></textarea>
     </div>
 
     <button onclick="sendToDiscord()" id="submitBtn">Submit Report</button>
@@ -182,14 +182,14 @@ async function sendToDiscord() {
 
     const payload = {
         embeds: [{
-            title: "🚨 New Site Report",
-            color: 16733184, // This is your #ff5400 orange in decimal
+            title: "New Site Report",
+            color: 16733184,
             fields: [
                 { name: "From", value: `\`${name}\``, inline: true },
                 { name: "Category", value: comp, inline: true },
                 { name: "Description", value: msg }
             ],
-            footer: { text: "RadioForUs Network | Automated Intake" },
+            footer: { text: "RadioForUs" },
             timestamp: new Date().toISOString()
         }]
     };
