@@ -3,97 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RadioForUs - Report an error.</title>
+    <title>RadioForUs - Report an Issue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --container-bg: #1e293b;
-            --text-color: #f8fafc;
-            --accent-color: #38bdf8;
-            --input-bg: #334155;
+            --primary: #000000;
+            --secondary: #64748b;
+            --accent: #ff5400; 
+            --bg: #ffffff;
+            --section-bg: #f8fafc;
+            --border: #e2e8f0;
+            --input-focus: #f1f5f9;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            background-color: var(--container-bg);
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background-color: var(--bg);
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
             width: 100%;
-            max-width: 400px;
-            border: 1px solid #334155;
+            max-width: 450px;
+            border: 1px solid var(--border);
+            text-align: center;
         }
 
-        h2 { margin-top: 0; color: var(--accent-color); font-size: 1.5rem; text-align: center; }
-        p { text-align: center; font-size: 0.85rem; opacity: 0.8; margin-bottom: 2rem; }
+        .logo-mark {
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
 
-        .form-group { margin-bottom: 1.2rem; }
-        label { display: block; margin-bottom: 0.4rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        h2 { 
+            font-size: 2rem; 
+            font-weight: 800; 
+            letter-spacing: -0.04em; 
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        p { 
+            color: var(--secondary); 
+            font-size: 0.95rem; 
+            margin-bottom: 2.5rem; 
+        }
+
+        .form-group { text-align: left; margin-bottom: 1.5rem; }
+
+        label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+        }
 
         input, textarea, select {
             width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background-color: var(--input-bg);
-            color: white;
-            box-sizing: border-box;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background-color: var(--section-bg);
+            color: var(--primary);
+            font-family: inherit;
             font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(255, 84, 0, 0.1);
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            background-color: var(--accent-color);
-            color: #0f172a;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 12px;
             font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
             margin-top: 1rem;
-            transition: transform 0.1s, opacity 0.2s;
+            transition: all 0.2s ease;
         }
 
-        button:active { transform: scale(0.98); }
-        button:hover { opacity: 0.9; }
+        button:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        button:active { transform: translateY(0); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .back-link:hover { color: var(--accent); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Report an error:</h2>
-    <p>Report issues with our website or our videos.</p>
+    <span class="logo-mark">RadioForUs<span>.</span></span>
+    <h2>Signal Report</h2>
+    <p>Help us fix the frequency by reporting website or video issues.</p>
 
     <div class="form-group">
         <label>Name / Callsign</label>
-        <input type="text" id="name" placeholder="Enter Name..." required>
+        <input type="text" id="name" placeholder="Who's reporting?" required>
     </div>
 
     <div class="form-group">
-        <label>Nature of the error:</label>
+        <label>Category</label>
         <select id="component">
-            <option value="Main Website">Main Site (radioforus.co.uk)</option>
-            <option value="Video Problem">A problem with one of our videos</option>
-            <option value="Other General Issue">Other...</option>
+            <option value="Broken Link/404">Broken Link / 404 Error</option>
+            <option value="Mobile Layout Issue">Layout Issue (Mobile/Desktop)</option>
+            <option value="Video Playback">Video Playback Problem</option>
+            <option value="Audio Quality">Audio/Sound Quality Issue</option>
+            <option value="Sub Count Bug">Subscriber/Live Count Bug</option>
+            <option value="General Suggestion">General Suggestion</option>
         </select>
     </div>
 
     <div class="form-group">
         <label>Details</label>
-        <textarea id="message" rows="4" placeholder="Briefly describe the issue..."></textarea>
+        <textarea id="message" rows="4" placeholder="Be as specific as possible..."></textarea>
     </div>
 
-    <button onclick="sendToDiscord()" id="submitBtn">Send!</button>
+    <button onclick="sendToDiscord()" id="submitBtn">Submit Report</button>
+    
+    <a href="/" class="back-link">← Back to Dashboard</a>
 </div>
 
 <script>
@@ -102,28 +170,26 @@ async function sendToDiscord() {
     const name = document.getElementById('name').value;
     const comp = document.getElementById('component').value;
     const msg = document.getElementById('message').value;
-    
-   
     const webhookURL = "https://discord.com/api/webhooks/1491923923833721014/mSlFQqtai5cW22R06b-lobfXMIWGD75uIluWM8gpt3hqV1iBehC5qr5DwnekFQb5ZS22";
 
     if (!name || !msg) {
-        alert("Please provide your name and the error details.");
+        alert("Please provide your name and the details.");
         return;
     }
 
-    btn.innerText = "Sending your report";
+    btn.innerText = "Transmitting...";
     btn.disabled = true;
 
     const payload = {
         embeds: [{
-            title: "Error in sending",
-            color: 16737380, 
+            title: "🚨 New Site Report",
+            color: 16733184, // This is your #ff5400 orange in decimal
             fields: [
-                { name: "Reported By", value: name, inline: true },
-                { name: "Affected System", value: comp, inline: true },
-                { name: "Fault Details", value: msg }
+                { name: "From", value: `\`${name}\``, inline: true },
+                { name: "Category", value: comp, inline: true },
+                { name: "Description", value: msg }
             ],
-            footer: { text: "Backup hosting" },
+            footer: { text: "RadioForUs Network | Automated Intake" },
             timestamp: new Date().toISOString()
         }]
     };
@@ -136,15 +202,16 @@ async function sendToDiscord() {
         });
 
         if (response.ok) {
-            alert("Report Sent. Thanks for your help :)");
+            alert("Report logged successfully. Thanks for the heads up!");
             document.getElementById('message').value = "";
+            document.getElementById('name').value = "";
         } else {
-            alert("Error!");
+            alert("Connection refused. Try again later.");
         }
     } catch (error) {
-        alert("Network Error: Could not reach server");
+        alert("Network Error: Check your internet connection.");
     } finally {
-        btn.innerText = "Send Report";
+        btn.innerText = "Submit Report";
         btn.disabled = false;
     }
 }
