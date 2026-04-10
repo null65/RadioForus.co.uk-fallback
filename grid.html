@@ -3,103 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio Tools | RadioForUs</title>
+    <title>UK Station Tools | RadioForUs</title>
     <style>
-        /* Light Theme Palette */
-        :root { 
-            --bg: #f8fafc; 
-            --card: #ffffff; 
-            --acc: #0284c7; 
-            --text: #0f172a; 
-            --border: #e2e8f0;
-        }
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 20px; 
-        }
-        .container { 
-            background: var(--card); 
-            padding: 2.5rem; 
-            border-radius: 12px; 
-            width: 100%; 
-            max-width: 420px; 
-            border: 1px solid var(--border); 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
-        }
-        h2 { color: var(--acc); margin-top: 0; text-align: center; letter-spacing: 1px; font-weight: 800; }
+        :root { --bg: #f8fafc; --card: #ffffff; --acc: #0284c7; --text: #0f172a; --border: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: var(--card); padding: 2.5rem; border-radius: 12px; width: 100%; max-width: 450px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { color: var(--acc); text-align: center; margin-bottom: 25px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         
-        .input-group { margin-bottom: 25px; }
-        input[type="text"] { 
-            width: 100%; 
-            padding: 12px; 
-            border-radius: 6px; 
-            border: 2px solid var(--border); 
-            background: #fff; 
-            color: var(--text); 
-            font-size: 1.1rem; 
-            text-transform: uppercase; 
-            text-align: center; 
-            box-sizing: border-box;
-        }
-        input[type="text"]:focus { border-color: var(--acc); outline: none; }
+        .section-label { font-size: 0.7rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin: 20px 0 10px 0; display: block; letter-spacing: 0.5px; }
+        input[type="text"], input[type="number"] { width: 100%; padding: 12px; border-radius: 6px; border: 2px solid var(--border); background: #fff; color: var(--text); font-size: 1.1rem; text-align: center; box-sizing: border-box; }
+        input:focus { border-color: var(--acc); outline: none; }
         
-        button { 
-            width: 100%; 
-            padding: 14px; 
-            background: var(--acc); 
-            color: white; 
-            border: none; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: 10px; 
-            transition: background 0.2s;
-        }
-        button:hover { background: #0369a1; }
-
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .stat-box { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .box { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
+        .full-width { grid-column: span 2; }
         .label { font-size: 0.65rem; text-transform: uppercase; color: #64748b; font-weight: 700; margin-bottom: 4px; }
-        .value { font-size: 1.25rem; font-family: 'Courier New', monospace; font-weight: bold; color: var(--text); }
-
-        .coords-info { margin-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b; font-weight: 500; }
-        .footer { margin-top: 25px; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 15px; }
+        .value { font-size: 1.2rem; font-weight: bold; color: var(--text); font-family: monospace; }
+        
+        button { width: 100%; padding: 14px; background: var(--acc); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .footer { margin-top: 30px; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 15px; }
         a { color: var(--acc); text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Radio Info Checker</h2>
+    <h2>UK Station Tools</h2>
     
-    <div class="input-group">
-        <input type="text" id="pcInput" placeholder="Enter Postcode">
-        <button onclick="calculate()">Calculate your info!</button>
+    <span class="section-label">Location Finder</span>
+    <input type="text" id="postcode" placeholder="Enter UK Postcode" style="text-transform: uppercase;">
+    <button onclick="getLocator()">Find your locator</button>
+    
+    <div class="result-grid">
+        <div class="box full-width">
+            <div class="label">Maidenhead Locator</div>
+            <div id="m-head" class="value">----</div>
+        </div>
     </div>
 
-    <div class="stat-grid">
-        <div class="stat-box"><div class="label">Maidenhead</div><div id="m-head" class="value">----</div></div>
-        <div class="stat-box"><div class="label">WAB Square</div><div id="wab-box" class="value">----</div></div>
-        <div class="stat-box"><div class="label">ITU Zone</div><div id="itu" class="value">--</div></div>
-        <div class="stat-box"><div class="label">CQ Zone</div><div id="cq" class="value">--</div></div>
+    <span class="section-label">Basic Antenna Calculator</span>
+    <input type="number" id="freq" placeholder="Frequency (MHz)" oninput="calcAntenna()">
+    
+    <div class="result-grid">
+        <div class="box">
+            <div class="label">1/2 Wave Dipole</div>
+            <div id="half-m" class="value">-- m</div>
+        </div>
+        <div class="box">
+            <div class="label">1/4 Wave Whip</div>
+            <div id="quart-m" class="value">-- m</div>
+        </div>
+        <div class="box full-width">
+            <div class="label">Full Wave Loop</div>
+            <div id="full-m" class="value">-- m</div>
+        </div>
     </div>
-
-    <div id="coords-info" class="coords-info">Ready for calculation</div>
 
     <div class="footer">
-        <a href="index.html">Main Site</a> • <a href="error.html">Status Page</a>
+        <a href="/">Back to Home Page</a> - <a href="error.html">Report an error with this service</a>
     </div>
 </div>
 
 <script>
-    function getMaidenhead(lat, lon) {
+    function calculateMaidenhead(lat, lon) {
         lat += 90; lon += 180;
         return String.fromCharCode(65 + Math.floor(lon / 20)) +
                String.fromCharCode(65 + Math.floor(lat / 10)) +
@@ -109,42 +75,34 @@
                String.fromCharCode(97 + Math.floor((lat % 1) * 24)).toUpperCase();
     }
 
-    async function calculate() {
-        const pc = document.getElementById('pcInput').value.trim();
-        const info = document.getElementById('coords-info');
+    async function getLocator() {
+        const pc = document.getElementById('postcode').value.trim();
         if(!pc) return;
-
-        info.innerText = "Searching database...";
-
         try {
             const res = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(pc)}`);
             const data = await res.json();
-            
             if(data.status === 200) {
-                const r = data.result;
+                document.getElementById('m-head').innerText = calculateMaidenhead(data.result.latitude, data.result.longitude);
+            } else { alert("Postcode not found."); }
+        } catch (e) { alert("API Offline."); }
+    }
 
-                document.getElementById('m-head').innerText = getMaidenhead(r.latitude, r.longitude);
- 
-                const gridRef = r.parliamentary_constituency_2024_code || ""; 
-                const e = Math.floor(r.eastings / 10000).toString().slice(-1);
-                const n = Math.floor(r.northings / 10000).toString().slice(-1);
-                
-            
-                const osLetters = r.nhs_ha ? "IO" : "SU"; 
-            
-                document.getElementById('wab-box').innerText = r.european_electoral_region.substring(0,2).toUpperCase() + e + n;
-                
-                document.getElementById('itu').innerText = "27";
-                document.getElementById('cq').innerText = "14";
-                info.innerText = `Lat: ${r.latitude.toFixed(4)} | Lon: ${r.longitude.toFixed(4)}`;
-            } else {
-                alert("Postcode not found.");
-                info.innerText = "Error: Check postcode";
-            }
-        } catch (e) {
-            alert("Connection error.");
-            info.innerText = "Error: API Offline";
+    function calcAntenna() {
+        const f = parseFloat(document.getElementById('freq').value);
+        if (!f || f <= 0) {
+            document.getElementById('half-m').innerText = "-- m";
+            document.getElementById('quart-m').innerText = "-- m";
+            document.getElementById('full-m').innerText = "-- m";
+            return;
         }
+        
+        const half = 143 / f;
+        const quart = half / 2;
+        const full = 300 / f; 
+
+        document.getElementById('half-m').innerText = half.toFixed(2) + "m";
+        document.getElementById('quart-m').innerText = quart.toFixed(2) + "m";
+        document.getElementById('full-m').innerText = full.toFixed(2) + "m";
     }
 </script>
 
