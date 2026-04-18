@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RADIOFORUS - Official Site!</title>
+  <meta
+    name="description"
+    content="RadioForUs official site featuring live YouTube channel data, recent uploads, and an active Discord community."
+  >
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #f3f1ec;
+      --paper: #fcfbf8;
+      --surface: #ffffff;
+      --surface-alt: #f6f4ef;
+      --text: #121212;
+      --muted: #66685f;
+      --line: #d8d3c9;
+      --line-strong: #bfb8ab;
+      --accent: #ff5400;
+      --accent-deep: #de4900;
+      --max-width: 1280px;
+      --radius: 8px;
+      --shadow: 0 8px 24px rgba(18, 18, 18, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    iframe {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: 0 auto;
+      padding: 20px 0 40px;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 18px;
+      background: rgba(252, 251, 248, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .brand-copy small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .nav-center {
+      color: var(--muted);
+      font-size: 0.88rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      background: rgba(18, 18, 18, 0.05);
+      color: var(--text);
+      outline: none;
+    }
+
+    .nav-links .nav-cta {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .nav-links .nav-cta:hover,
+    .nav-links .nav-cta:focus-visible {
+      background: var(--accent-deep);
+      color: #fff;
+    }
+
+    main {
+      margin-top: 18px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 44px 40px 36px;
+      border-right: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy h1 {
+      max-width: 11ch;
+      margin-top: 20px;
+      font-size: clamp(3.5rem, 7vw, 6.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.08em;
+    }
+
+    .hero-copy p {
+      max-width: 56ch;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .button-primary:hover,
+    .button-primary:focus-visible {
+      background: var(--accent-deep);
+      outline: none;
+    }
+
+    .button-secondary {
+      border: 1px solid var(--line-strong);
+      color: var(--text);
+    }
+
+    .button-secondary:hover,
+    .button-secondary:focus-visible {
+      background: rgba(18, 18, 18, 0.04);
+      outline: none;
+    }
+
+    .hero-notes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 56px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-notes span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-notes strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.98rem;
+      line-height: 1.34;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-side {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: var(--surface);
+    }
+
+    .side-block {
+      padding: 28px 26px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .side-block:last-child {
+      border-bottom: 0;
+    }
+
+    .side-block h2 {
+      font-size: 1.1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .side-block p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .stats-list {
+      display: grid;
+      gap: 0;
+      margin-top: 4px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: end;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stat-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .stat-row span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .stat-row strong {
+      font-size: clamp(1.35rem, 3vw, 2.1rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-align: right;
+    }
+
+    .featured {
+      margin-top: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .featured-frame {
+      padding: 18px;
+      background: var(--surface-alt);
+    }
+
+    .featured-frame .frame {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      aspect-ratio: 16 / 8.6;
+      background: #111;
+    }
+
+    .featured-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .editorial {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .latest {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .video-list {
+      display: grid;
+    }
+
+    .video-item {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: start;
+      padding: 20px 24px;
+      border-top: 1px solid var(--line);
+      transition: background 0.2s ease;
+    }
+
+    .video-item:first-child {
+      border-top: 0;
+    }
+
+    .video-item:hover,
+    .video-item:focus-visible {
+      background: #faf8f3;
+      outline: none;
+    }
+
+    .video-item .meta {
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .video-item h3 {
+      font-size: 1.06rem;
+      line-height: 1.34;
+      letter-spacing: -0.03em;
+    }
+
+    .video-item p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      max-width: 60ch;
+    }
+
+    .video-item .cta {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    .community {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .community-copy {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .community-copy h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .community-copy p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .community-points {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .community-points div {
+      padding: 10px 12px;
+      background: var(--surface-alt);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #31312d;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .discord-shell {
+      padding: 16px;
+      background: var(--surface-alt);
+    }
+
+    .discord-shell iframe {
+      width: 100%;
+      min-height: 470px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    footer {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 20px;
+      margin-top: 18px;
+      padding: 24px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    footer h3 {
+      font-size: 1.18rem;
+      letter-spacing: -0.04em;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    footer h4 {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    footer p,
+    footer a,
+    footer li {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    footer ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+
+    .footer-meta {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 1100px) {
+      .hero,
+      .editorial,
+      footer {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .page {
+        width: min(calc(100% - 20px), var(--max-width));
+      }
+
+      .site-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-copy,
+      .side-block,
+      .section-head,
+      .video-item,
+      .community-copy,
+      footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .video-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .video-item .cta {
+        align-self: start;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(2.9rem, 15vw, 4.7rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="site-nav" aria-label="Primary">
+      <a class="brand" href="#">
+        <img class="brand-mark" src="/favicon.png" alt="RadioForUs logo">
+        <span class="brand-copy">
+          <small><i>Official site</i></small>
+          <strong>RADIOFORUS</strong>
+        </span>
+      </a>
+
+      <div class="nav-center">Everything from live stats to the latest contest!</div>
+
+      <div class="nav-links">
+        <a href="#latest">Latest</a>
+        <a href="#community">Our Community</a>
+        <a href="/grid">Tools</a>
+        <a href="/error">Report an Error</a>
+        <a href="https://youtube.com/@RADIOFORUS" target="_blank" rel="noreferrer">YouTube</a>
+        <a class="nav-cta" href="https://discord.gg/nNdkVhvTyR" target="_blank" rel="noreferrer">Discord</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <article class="hero-copy">
+          <div>
+            <div class="eyebrow">Breaking the old stereotype</div>
+            <h1 id="hero-title">Amateur radio shown with all the gritty bits.</h1>
+            <p>RadioForUs is built around practical videos, a more current point of view, and a stronger community around the hobby.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://youtube.com/@RADIOFORUS" target="_blank" rel="noreferrer">Visit YouTube</a>
+              <a class="button button-secondary" href="#latest">See latest uploads</a>
+            </div>
+          </div>
+
+          <div class="hero-notes" aria-label="Highlights">
+
+
+         </div>
+        </article>
+
+        <aside class="hero-side" aria-labelledby="stats-heading">
+          <section class="side-block">
+            <h2 id="stats-heading">Live Channel Stats</h2>
+            <div class="stats-list">
+              <div class="stat-row">
+                <span>Subscribers</span>
+                <strong id="s-count">...</strong>
+              </div>
+              <div class="stat-row">
+                <span>Total Views</span>
+                <strong id="v-count">...</strong>
+              </div>
+              <div class="stat-row">
+                <span>Channel</span>
+                <strong>@RADIOFORUS</strong>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="side-block">
+            <h2>How come we have a site?</h2>
+            <p>
+              The idea for this site was thought of when Jack (M9JAK) & Tom (2E0KOF) ran a youth based net on FreeSTAR, We believed we needed a central place for updates, general info and exciting new things!</p>
+          </section>
+        </aside>
+      </section>
+
+      <section class="featured" aria-labelledby="featured-video-title">
+        <div class="section-head">
+          <div>
+            <p>Featured Video</p>
+            <h2 id="featured-video-title">Latest upload from the channel</h2>
+          </div>
+          <a class="button button-secondary" href="https://youtube.com/@RADIOFORUS" target="_blank" rel="noreferrer">Open channel</a>
+        </div>
+        <div class="featured-frame">
+          <div class="frame">
+            <iframe
+              id="main-video"
+              src="https://www.youtube.com/embed?listType=user_uploads&list=RADIOFORUS"
+              title="RadioForUs featured video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="editorial">
+        <article class="latest" id="latest">
+          <div class="section-head">
+            <div>
+              <p>Latest From the Channel</p>
+              <h2>Recent uploads</h2>
+            </div>
+          </div>
+
+          <div class="video-list" id="projects-container">
+            <a class="video-item" href="https://youtube.com/@RADIOFORUS" target="_blank" rel="noreferrer">
+              <div class="meta">Loading</div>
+              <div>
+                <h3>Fetching recent uploads.</h3>
+                <p>The latest videos will appear here as soon as the YouTube data is returned.</p>
+              </div>
+              <div class="cta">Stand by! :)</div>
+            </a>
+          </div>
+        </article>
+
+        <aside class="community" id="community">
+          <div class="community-copy">
+            <h2>Community</h2>
+            <p>
+              Keep up with new videos, ask questions, and take part in a more open and current conversation around
+              amateur radio.
+            </p>
+            <div class="community-points" aria-label="Community points">
+              <div>Discussion around current uploads and ideas</div>
+              <div>Beginner-friendly chat without the usual barriers</div>
+              <div>Direct access to the RADIOFORUS audience</div>
+            </div>
+            <div class="hero-actions" style="margin-top:18px;">
+              <a class="button button-primary" href="https://discord.gg/nNdkVhvTyR" target="_blank" rel="noreferrer">Join Discord</a>
+            </div>
+          </div>
+
+          <div class="discord-shell">
+            <iframe
+              src="https://discord.com/widget?id=1454532912811737272&theme=light"
+              title="RadioForUs Discord widget"
+              allowtransparency="true"
+              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            ></iframe>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <section>
+        <div class="footer-brand">
+          <img src="/favicon.png" alt="RadioForUs logo">
+          <h3>RADIOFORUS</h3>
+        </div>
+        <p style="margin-top:12px;">
+          This site is Managed by <a href="https://jackbrown.xyz">Jack Brown (M9JAK)</a> any questions, comments or feedback would be appreciated over at <a href="mailto:jack@radioforus.co.uk">jack@radioforus.co.uk</a>
+          
+        </p>
+      </section>
+
+      <section>
+        <h4>Our Admins</h4>
+        <ul>
+          <li><a href="mailto:jack@radioforus.co.uk">Jack M9JAK</a></li>
+          <li><a href="mailto:tom@radioforus.co.uk">Tom 2E0KOF</a></li>
+          <li><a href="mailto:marc@radioforus.co.uk">Marc M7GQW</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Handy Links!</h4>
+        <ul>
+          <li><a href="https://youtube.com/@RADIOFORUS" target="_blank" rel="noreferrer">YouTube Channel</a></li>
+          <li><a href="https://discord.gg/nNdkVhvTyR" target="_blank" rel="noreferrer">Discord Community</a></li>
+          
+        </ul>
+      </section>
+
+    </footer>
+  </div>
+
+  <script>
+    // before anyone says, These API Keys have been locked to this domain, No naughty spoofers!
+    async function fetchYT() {
+      const k = "AIzaSyAW0KXOn8k9QGJ8tGBKhkE01MavX3dDCQ8";
+      const cid = "UCalY7AhuZ96YlR8ZvJGlgzQ";
+
+      try {
+        const statsRes = await fetch(
+          "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + cid + "&key=" + k
+        );
+        const statsData = await statsRes.json();
+        const s = statsData.items[0].statistics;
+
+        document.getElementById("s-count").innerText = Number(s.subscriberCount).toLocaleString();
+        document.getElementById("v-count").innerText = Number(s.viewCount).toLocaleString();
+
+        const searchUrl =
+          "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" +
+          cid +
+          "&maxResults=6&order=date&type=video&key=" +
+          k;
+        const videoRes = await fetch(searchUrl);
+        const videoData = await videoRes.json();
+
+        if (videoData.items && videoData.items.length > 0) {
+          const videos = videoData.items;
+          document.getElementById("main-video").src =
+            "https://www.youtube.com/embed/" + videos[0].id.videoId;
+
+          const container = document.getElementById("projects-container");
+          container.innerHTML = "";
+
+          videos.slice(1, 5).forEach(function (v, index) {
+            const card = document.createElement("a");
+            const meta = document.createElement("div");
+            const content = document.createElement("div");
+            const heading = document.createElement("h3");
+            const body = document.createElement("p");
+            const action = document.createElement("div");
+            const title = v.snippet.title || "Untitled video";
+            const description = v.snippet.description || "Watch the latest content on RadioForUs.";
+            const trimmedDescription =
+              description.length > 150 ? description.substring(0, 150).trimEnd() + "..." : description;
+
+            card.className = "video-item";
+            card.href = "https://www.youtube.com/watch?v=" + v.id.videoId;
+            card.target = "_blank";
+            card.rel = "noreferrer";
+
+            meta.className = "meta";
+            meta.textContent = "Recent upload " + (index + 1);
+
+            heading.textContent = title;
+            body.textContent = trimmedDescription;
+            content.appendChild(heading);
+            content.appendChild(body);
+
+            action.className = "cta";
+            action.textContent = "Watch on YouTube";
+
+            card.appendChild(meta);
+            card.appendChild(content);
+            card.appendChild(action);
+            container.appendChild(card);
+          });
+        }
+      } catch (e) {
+        document.getElementById("s-count").innerText = "Offline";
+        document.getElementById("v-count").innerText = "Offline";
+        console.error("Sorry, Something went wrong!", e);
+      }
+    }
+
+    fetchYT();
+  </script>
+</body>
+</html>
